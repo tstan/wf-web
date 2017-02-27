@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
 
     <!-- Javascript dependencies -->
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/vis.min.js"></script>
     <script type="text/javascript" src="js/graph-create.js"></script>
 
@@ -23,7 +23,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/"><i class="fa fa-home" aria-hidden="true"></i>
+            <a class="navbar-brand" href="/~lstanche/graph/"><i class="fa fa-home" aria-hidden="true"></i>
             Word Form Graph Visualization</a>
         </div>
     </div>
@@ -38,86 +38,34 @@
         <p>
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Enter a word..." id="searchWordInput">
-            <script type="text/javascript">
-                function centerWord() {
-                    var word = $("#searchWordInput").val();
-                    if (word.length == 0) {
-                        window.location.href = '/';
-                    }
-                    location.href = word.toLowerCase();
-                }
+            <div class="input-group-btn">
+                <button class="btn btn-default" onclick="centerWord($('#searchWordInput').val().toLowerCase())">
+                    Search <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+            </div>
 
+            <script type="text/javascript">
                 $('#searchWordInput').keypress(function (e) {
                     var key = e.which;
-                    if(key == 13)  // the enter key code
+                    var word = $("#searchWordInput").val();
+                    if (key == 13)  // the enter key code
                     {
-                        centerWord();
+                        centerWord(word.toLowerCase());
                         return false;
                     }
                 });
             </script>
-            <div class="input-group-btn">
-                <button class="btn btn-default" onclick="centerWord(); return false;">
-                    Search <i class="fa fa-search" aria-hidden="true"></i>
-                </button>
-            </div>
         </div>
         </p>
     </div>
 </div>
 
 <div class="container">
-
-    <div class="row center">
-        <c:choose>
-            <c:when test="${no_neighbors}">
-                <h3>No neighbors were found for "${searchWord}"</h3>
-            </c:when>
-            <c:when test="${searchWord.length() > 0}">
-                <center>
-                    <h3>Neighbors of "${searchWord}" <i onclick="$('#myModal').modal('show');" onmouseover="" style="cursor: pointer;" class="fa fa-question-circle-o" aria-hidden="true"></i></h3>
-                    <p>click ? to see help dialog</p>
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title" id="myModalLabel">Welcome to WordForm Graph Visualization Project</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <h2>In this app you can,</h2>
-                                    <ul>
-                                        <li>Hover over a node to see full text</li>
-                                        <li>Drag nodes around to space them out</li>
-                                        <li>Use the scroll wheel to zoom in and out</li>
-                                        <li>Double click to explore a neighboring node</li>
-                                    </ul>
-
-                                    <h2>Thank you and have fun!</h2>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h1></h1>
-                    <div id="mynetwork"></div>
-                </center>
-                <script type="text/javascript" src="${coreJs}"></script>
-                <script type="text/javascript">
-                    //center node
-                    push_node(0, "${searchWord}");
-                    <c:forEach items="${neighbors}" var="neighbor">
-                    add_neighbor("${neighbor.getLabel()}", ${neighbor.getWeight()});
-                    </c:forEach>
-                    initialize_network();
-                </script>
-            </c:when>
-        </c:choose>
+    <div class="center">
+        <h1><div id="searchWord"></div></h1>
+        <br>
+        <div id="mynetwork" class="hidden">asdfasdfasdfas</div>
     </div>
-
     <hr>
     <footer>
         <p>&copy; Theodore Tan - Senior Project - 2016</p>
