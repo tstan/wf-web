@@ -1,7 +1,7 @@
 var global_word = "";
-var network;
 var idToLabel = {};
 var labelToId = {};
+var adjList = {};
 
 var options = {
     layout: {
@@ -56,7 +56,7 @@ function loadLabelToId() {
 
 function loadAdjList() {
     $.getJSON('json/adjList.json', function(data) {
-        labelToId = data;
+        adjList = data;
         console.log("finished adjList");
     });
 }
@@ -67,7 +67,33 @@ function loadWfGraphFiles() {
     loadAdjList();
 }
 
+/*
+    WFGraph Functions
+ */
+function wfGraph_getLabel(id) {
+    return idToLabel[id];
+}
+
+function wfGraph_getId(label) {
+    return labelToId[label];
+}
+
+function wfGraph_getNeighbors(id) {
+    return adjList[id];
+}
+
+function wfGraph_getNeighborsLabels (idList) {
+    var labelList = [];
+    for (var i in idList) {
+        labelList.push(wfGraph_getLabel(idList[i]));
+    }
+
+    return labelList;
+}
+
 function initialize_network(nodelist, edgelist) {
+    var network;
+
     var container = document.getElementById('mynetwork');
     container.className = "center";
 
@@ -89,37 +115,31 @@ function initialize_network(nodelist, edgelist) {
     console.log('finished network creation');
 }
 
+
+//TODO: Write graph population function
+function temp_initialize() {
+    var container = document.getElementById('mynetwork');
+
+    var word_id = wfGraph_getId(global_word);
+    var word_neighbors_ids = wfGraph_getNeighbors(word_id);
+    var word_neighbors = wfGraph_getNeighborsLabels(word_neighbors_ids);
+
+    container.className = "center";
+    container.innerHTML = 'You searched for <strong>"' + global_word + '"</strong>. <br/>'
+    + "Neighbors are: <ul>";
+
+    for (var i in word_neighbors) {
+        container.innerHTML += "<li>"+ word_neighbors[i] +"</li>";
+    }
+    container.innerHTML += "</ul>";
+
+}
+
 function centerWord(word) {
     var nodelist = [];
     var edgelist = [];
 
-    // create an array with nodes
-    var nodes = [
-        {id: 1, label: 'Node 1'},
-        {id: 2, label: 'Node 2'},
-        {id: 3, label: 'Node 3'},
-        {id: 4, label: 'Node 4'},
-        {id: 5, label: 'Node 5'}
-    ];
-
-    // create an array with edges
-    var edges = [
-        {from: 1, to: 3},
-        {from: 1, to: 2},
-        {from: 2, to: 4},
-        {from: 2, to: 5},
-        {from: 3, to: 3}
-    ];
-
-
-    var i = 6;
-    for (i; i < 20; i++) {
-        nodes.push({id: i, label:'derp'});
-        edges.push({from:1, to:i});
-    }
-
-    var id = 1;
-
+    /* get search word */
     var searchInput = $("#searchWordInput");
 
     if (word.length == 0) {
@@ -129,12 +149,10 @@ function centerWord(word) {
     console.log("searched for: " + word.toLowerCase());
     global_word = word.toLowerCase();
 
+    /* put search word into header of graph and clear input*/
     var searchWord = document.getElementById("searchWord");
     searchWord.textContent = 'Neighboring words of "' + global_word + '"';
-
     searchInput.val("");
 
-    initialize_network(nodes, edges);
-
-    return true;
+    temp_initialize();
 }
