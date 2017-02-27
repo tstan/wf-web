@@ -8,7 +8,17 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/vis.min.js"></script>
     <script type="text/javascript" src="js/graph-create.js"></script>
+    <script type="text/javascript">
+        function load() {
+            loadWfGraphFiles();
+            $("#myOverlay").show();
+            setTimeout(function(){
+                $('#myOverlay').hide();
+            }, 2000);
+        }
 
+        load();
+    </script>
     <!-- Stylesheets -->
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link href="css/vis.min.css" rel="stylesheet"/>
@@ -19,6 +29,8 @@
 </head>
 
 <body>
+
+<div id="myOverlay"><div class="loader"> Loading data... </div></div>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">

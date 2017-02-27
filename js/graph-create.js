@@ -1,5 +1,7 @@
 var global_word = "";
 var network;
+var idToLabel = {};
+var labelToId = {};
 
 var options = {
     layout: {
@@ -36,6 +38,34 @@ function add_neighbor(edgelist, id, label, weight) {
     edgelist.push({from : 0, to: id, label: weightstring, value:weightstring, font: {align: 'middle'}});
 }
 */
+
+// getJSON is asynchronous so we need to wait for it...
+function loadIdToLabel() {
+    $.getJSON('json/idToLabel.json', function(data) {
+        idToLabel = data;
+        console.log("finished idToLabel");
+    });
+}
+
+function loadLabelToId() {
+    $.getJSON('json/labelToId.json', function(data) {
+        labelToId = data;
+        console.log("finished labelToId");
+    });
+}
+
+function loadAdjList() {
+    $.getJSON('json/adjList.json', function(data) {
+        labelToId = data;
+        console.log("finished adjList");
+    });
+}
+
+function loadWfGraphFiles() {
+    loadIdToLabel();
+    loadLabelToId();
+    loadAdjList();
+}
 
 function initialize_network(nodelist, edgelist) {
     var container = document.getElementById('mynetwork');
@@ -80,6 +110,13 @@ function centerWord(word) {
         {from: 2, to: 5},
         {from: 3, to: 3}
     ];
+
+
+    var i = 6;
+    for (i; i < 20; i++) {
+        nodes.push({id: i, label:'derp'});
+        edges.push({from:1, to:i});
+    }
 
     var id = 1;
 
