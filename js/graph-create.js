@@ -2,6 +2,7 @@ var global_word = "";
 var idToLabel = {};
 var labelToId = {};
 var adjList = {};
+var edgeList = {};
 
 var options = {
     layout: {
@@ -61,10 +62,17 @@ function loadAdjList() {
     });
 }
 
+function loadEdgeList() {
+    $.getJSON('json/edgeList.json', function(data) {
+        edgeList = data;
+        console.log("finished edgeList");
+    });
+}
 function loadWfGraphFiles() {
     loadIdToLabel();
     loadLabelToId();
     loadAdjList();
+    loadEdgeList();
 }
 
 /*
@@ -82,6 +90,11 @@ function wfGraph_getNeighbors(id) {
     return adjList[id];
 }
 
+function wfGraph_getWeight(id1, id2) {
+    var joined = id1 + "-" + id2;
+    return edgeList[joined];
+}
+
 function wfGraph_getNeighborsLabels (idList) {
     var labelList = [];
     for (var i in idList) {
@@ -90,6 +103,9 @@ function wfGraph_getNeighborsLabels (idList) {
 
     return labelList;
 }
+/*
+    end WFGraph functions
+ */
 
 function initialize_network(nodelist, edgelist) {
     var network;
@@ -124,12 +140,12 @@ function temp_initialize() {
     var word_neighbors_ids = wfGraph_getNeighbors(word_id);
     var word_neighbors = wfGraph_getNeighborsLabels(word_neighbors_ids);
 
-    container.className = "center";
+    container.className = "";
     container.innerHTML = 'You searched for <strong>"' + global_word + '"</strong>. <br/>'
     + "Neighbors are: <ul>";
 
     for (var i in word_neighbors) {
-        container.innerHTML += "<li>"+ word_neighbors[i] +"</li>";
+        container.innerHTML += "<li>"+ word_neighbors[i] +". Weight: " + wfGraph_getWeight(word_id, word_neighbors_ids[i])+"</li>";
     }
     container.innerHTML += "</ul>";
 
@@ -151,7 +167,7 @@ function centerWord(word) {
 
     /* put search word into header of graph and clear input*/
     var searchWord = document.getElementById("searchWord");
-    searchWord.textContent = 'Neighboring words of "' + global_word + '"';
+    searchWord.textContent = 'Neighbors of "' + global_word + '"';
     searchInput.val("");
 
     temp_initialize();

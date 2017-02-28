@@ -14,7 +14,7 @@
             $("#myOverlay").show();
             setTimeout(function(){
                 $('#myOverlay').hide();
-            }, 2000);
+            }, 1000);
         }
 
         load();
@@ -42,6 +42,9 @@
         <ul class="nav navbar-nav">
             <li>
                 <a href ="#" onclick="$('#myModal').modal('show');" style="cursor: pointer;">Help</a>
+            </li>
+            <li>
+                <a href ="#" style="cursor: pointer;">About</a>
             </li>
         </ul>
     </div>
@@ -80,34 +83,38 @@
 </div>
 
 <div class="container">
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Welcome to WordForm Graph Visualization Project</h4>
-                </div>
-                <div class="modal-body">
-                    <h2>Search any word/phrase to start, then</h2>
-                    <ul>
-                        <li>Hover over a node to see full text</li>
-                        <li>Drag nodes around to space them out</li>
-                        <li>Use the scroll wheel to zoom in and out</li>
-                        <li>Double click to explore a neighboring node</li>
-                    </ul>
-                    <h2>Please let me know if you find any bugs!</h2>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <div class="row">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Welcome to WordForm Graph Visualization Project</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h2>Search any word/phrase to start, then</h2>
+                        <ul>
+                            <li>Hover over a node to see full text</li>
+                            <li>Drag nodes around to space them out</li>
+                            <li>Use the scroll wheel to zoom in and out</li>
+                            <li>Double click to explore a neighboring node</li>
+                        </ul>
+                        <h2>Please let me know if you find any bugs!</h2>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="center">
-        <h3>
-            <div id="searchWord"></div>
-        </h3>
-        <div id="mynetwork" class="hidden">asdfasdfasdfas</div>
+        <div>
+            <center>
+            <h3>
+                <div id="searchWord"></div>
+            </h3>
+            <div id="mynetwork" class="hidden">asdfasdfasdfas</div>
+            </center>
+        </div>
     </div>
     <hr>
     <footer>
