@@ -15,7 +15,6 @@ var options = {
     }
 };
 
-/* //previous functions for spring application
 function getWords(str) {
     return str.split(/\s+/).slice(0,5).join(" ");
 }
@@ -26,19 +25,17 @@ function trim_string(label) {
     else
         return label;
 }
+
 function push_node(nodelist, id, wf_label) {
-    if (id == 0)
-        nodelist.push({id: id, label: wf_label});
-    else
-        nodelist.push({id: id, label: trim_string(wf_label), title: wf_label});
+    nodelist.push({id: id, label: wf_label, title: wf_label});
 }
 
-function add_neighbor(edgelist, id, label, weight) {
+function add_neighbor(nodelist, edgelist, id, label, weight, og_wt) {
     var weightstring = (weight).toFixed(2);
-    push_node(id, label);
-    edgelist.push({from : 0, to: id, label: weightstring, value:weightstring, font: {align: 'middle'}});
+    nodelist.push({id: id, label: trim_string(label), title: '"' + label + '"<br>Non-normalized Weight: ' + og_wt, search: label});
+    edgelist.push({from : 0, to: id, label: weightstring, value:weightstring, scaling:{max: 10}, font: {align: 'middle'}});
 }
-*/
+
 
 // getJSON is asynchronous so we need to wait for it...
 function loadIdToLabel() {
@@ -63,11 +60,17 @@ function loadAdjList() {
 }
 
 function loadEdgeList() {
-    $.getJSON('json/edgeList.json', function(data) {
-        edgeList = data;
-        console.log("finished edgeList");
+    $.ajax({
+        url: 'json/edgeList.json',
+        dataType: 'json',
+        success: function(data) {
+            edgeList = data;
+            console.log("finished edgeList");
+            $('#myOverlay').hide();
+        }
     });
 }
+
 function loadWfGraphFiles() {
     loadIdToLabel();
     loadLabelToId();
@@ -107,8 +110,33 @@ function wfGraph_getNeighborsLabels (idList) {
     end WFGraph functions
  */
 
-function initialize_network(nodelist, edgelist) {
+function initialize_network() {
+    var nodelist = [];
+    var edgelist = [];
     var network;
+
+
+    var word_id = wfGraph_getId(global_word);
+    var word_neighbors_ids = wfGraph_getNeighbors(word_id);
+    var total_weight = 0;
+    var weights = [];
+
+    for (var i in word_neighbors_ids) {
+        var weight = parseFloat(wfGraph_getWeight(word_id, word_neighbors_ids[i]))
+        weights.push(weight);
+        total_weight += weight;
+    }
+
+    push_node(nodelist, 0, global_word);
+    for (var j in word_neighbors_ids) {
+        add_neighbor(
+            nodelist,
+            edgelist,
+            j+1,  // id
+            wfGraph_getLabel(word_neighbors_ids[j]),
+            weights[j]/total_weight,
+            weights[j])
+    }
 
     var container = document.getElementById('mynetwork');
     container.className = "center";
@@ -118,15 +146,19 @@ function initialize_network(nodelist, edgelist) {
     var data = {nodes: nodes, edges: edges};
     network = new vis.Network(container, data, options);
     network.on("doubleClick", function (params) {
-        centerWord(nodes.get(params["nodes"][0])["title"]);
+        centerWord(nodes.get(params["nodes"][0])["search"]);
     });
 
-    network.setOptions
-    (
-        {
-            physics: {enabled:false}
-        }
-    );
+    if (edgelist.length > 5) {
+
+        network.setOptions
+        (
+            {
+                physics: {enabled:false}
+            }
+        );
+
+    }
 
     console.log('finished network creation');
 }
@@ -152,8 +184,6 @@ function temp_initialize() {
 }
 
 function centerWord(word) {
-    var nodelist = [];
-    var edgelist = [];
 
     /* get search word */
     var searchInput = $("#searchWordInput");
@@ -170,5 +200,5 @@ function centerWord(word) {
     searchWord.textContent = 'Neighbors of "' + global_word + '"';
     searchInput.val("");
 
-    temp_initialize();
+    initialize_network();
 }
