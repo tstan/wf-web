@@ -149,16 +149,12 @@ function initialize_network() {
         centerWord(nodes.get(params["nodes"][0])["search"]);
     });
 
-    if (edgelist.length > 5) {
-
-        network.setOptions
-        (
-            {
-                physics: {enabled:false}
-            }
-        );
-
-    }
+    network.setOptions
+    (
+        {
+            physics: {enabled:false}
+        }
+    );
 
     console.log('finished network creation');
 }
