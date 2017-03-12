@@ -38,10 +38,10 @@
         </div>
         <ul class="nav navbar-nav">
             <li>
-                <a href ="#" onclick="$('#myModal').modal('show');" style="cursor: pointer;">Help</a>
+                <a href ="#" onclick="$('#helpModal').modal('show');" style="cursor: pointer;">Help</a>
             </li>
             <li>
-                <a href ="#" style="cursor: pointer;">About</a>
+                <a href ="#" onclick="$('#aboutModal').modal('show');" style="cursor: pointer;">About</a>
             </li>
         </ul>
     </div>
@@ -81,22 +81,49 @@
 
 <div class="container">
     <div class="row">
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Welcome to WordForm Graph Visualization Project</h4>
+                        <h4 class="modal-title" id="aboutModalLabel">About the project...</h4>
                     </div>
                     <div class="modal-body">
-                        <h2>Search any word/phrase to start, then</h2>
-                        <ul>
-                            <li>Hover over a node to see full text</li>
-                            <li>Drag nodes around to space them out</li>
-                            <li>Use the scroll wheel to zoom in and out</li>
-                            <li>Double click to explore a neighboring node</li>
-                        </ul>
-                        <h2>Please let me know if you find any bugs!</h2>
+                        <h4>Thank you for checking out the WF Graph Visualization project.</h4>
+                        <p>
+                            This tool was made as part of a senior project in 2017.
+                            <br>
+                            Singular words in most languages can have many different meanings (senses) so AI may have problems trying to understand
+                            language. The graph helps us see the network between words and their senses, giving a weight that shows
+                            the likely relevancy of a relationship between word and its sense.
+                        </p>
+
+                        <h4>
+                        <a href="mailto:tstan@calpoly.edu?Subject=WFGraph%20Bug/Suggestion" target="_top">Please let me know if you find any bugs!</a>
+                        </h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="helpModalLabel">Welcome to the Word Form Graph Visualization Project</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Note: Data load may take a while; There is a lot of it.</h4>
+                            <ul>
+                                <li>Search any word/phrase to start</li>
+                                <li>Hover over a node to see full text</li>
+                                <li>Drag nodes around to space them out</li>
+                                <li>Use the scroll wheel to zoom in and out</li>
+                                <li>Double click to explore a neighboring node</li>
+                            </ul>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
