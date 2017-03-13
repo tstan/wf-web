@@ -133,28 +133,11 @@
         </div>
         <div>
             <strong>Senses On/Off</strong><br>
-            <input type="checkbox" id="senseCheckbox" checked onchange="if (global_word.length > 0) {centerWord(global_word)}">
-            <br><strong>Neighbor Limit</strong><br>
-            <select id="sel1" onchange="if (global_word.length > 0) {centerWord(global_word)}">
-                <option value="10">10</option>
-                <option value="30">15</option>
-                <option value="20">20</option>
-                <option value="30">25</option>
-                <option value="30">30</option>
-                <option value="Unlimited">Unlimited</option>
-            </select>
-            <br><strong>Depth</strong><br>
-            <select id="depth" onchange="if (global_word.length > 0) {centerWord(global_word)}">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
-            <!--label class="switch">
+            <label class="switch">
                 <input type="checkbox" id="senseCheckbox" checked onchange="if (global_word.length > 0) {centerWord(global_word)}">
                 <div class="slider"></div>
-            </label-->
-            <!-- div class="form-group" style="width:10%">
+            </label>
+            <div class="form-group" style="width:10%">
                 <label for="sel1">Neighbor Limit</label>
                 <select class="form-control" id="sel1" onchange="if (global_word.length > 0) {centerWord(global_word)}">
                     <option value="10">10</option>
@@ -162,7 +145,14 @@
                     <option value="30">30</option>
                     <option value="Unlimited">Unlimited</option>
                 </select>
-            </div-->
+                <label for="depth">Depth</label>
+                <select class="form-control" id="depth" onchange="if (global_word.length > 0) {centerWord(global_word)}">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
 
             <center>
             <h3>
