@@ -123,7 +123,7 @@
                                 <li>Double click to explore a neighboring node</li>
                             </ul>
                         <h4>Legend:</h4>
-                        <ul class="legend"><li><span class="word"></span> Word </li> <li><span class="sense"></span> Sense </li></ul>
+                        <ul class="legend"><li><span class="word"></span> Word - blue </li> <li><span class="sense"></span> Sense - green </li></ul>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -133,19 +133,36 @@
         </div>
         <div>
             <strong>Senses On/Off</strong><br>
-            <label class="switch">
-                <input type="checkbox" id="senseCheckbox" checked onchange="centerWord(global_word)">
+            <input type="checkbox" id="senseCheckbox" checked onchange="if (global_word.length > 0) {centerWord(global_word)}">
+            <br><strong>Neighbor Limit</strong><br>
+            <select id="sel1" onchange="if (global_word.length > 0) {centerWord(global_word)}">
+                <option value="10">10</option>
+                <option value="30">15</option>
+                <option value="20">20</option>
+                <option value="30">25</option>
+                <option value="30">30</option>
+                <option value="Unlimited">Unlimited</option>
+            </select>
+            <br><strong>Depth</strong><br>
+            <select id="depth" onchange="if (global_word.length > 0) {centerWord(global_word)}">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+            <!--label class="switch">
+                <input type="checkbox" id="senseCheckbox" checked onchange="if (global_word.length > 0) {centerWord(global_word)}">
                 <div class="slider"></div>
-            </label>
-            <div class="form-group" style="width:10%">
-                <label for="sel1">Neigbor Limit</label>
-                <select class="form-control" id="sel1" onchange="centerWord(global_word)">
+            </label-->
+            <!-- div class="form-group" style="width:10%">
+                <label for="sel1">Neighbor Limit</label>
+                <select class="form-control" id="sel1" onchange="if (global_word.length > 0) {centerWord(global_word)}">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="30">30</option>
                     <option value="Unlimited">Unlimited</option>
                 </select>
-            </div>
+            </div-->
 
             <center>
             <h3>

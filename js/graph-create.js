@@ -307,8 +307,10 @@ function initialize_network_no_senses() {
     var network;
 
 
+    var depth = $("#depth").val();
+
     var word_id = wfGraph_getId(global_word);
-    var word_neighbors_ids = wfGraph_getNeighborsNoSenses(word_id, 2);
+    var word_neighbors_ids = wfGraph_getNeighborsNoSenses(word_id, depth);
     var total_weight = 0;
 
     for (var i in word_neighbors_ids) {
