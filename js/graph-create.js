@@ -46,7 +46,7 @@ function push_node(nodelist, id, wf_label, realId) {
 }
 
 function add_neighbor(nodelist, edgelist, id, label, weight, realId) {
-    var weightstring = (weight).toFixed(2);
+    var weightstring = (weight).toFixed(3);
 
     if (!isSense(realId)) {
         nodelist.push(
@@ -189,11 +189,13 @@ function wfGraph_getNeighborsNoSenses(id, maxDepth) {
                 var nextNeighbor_ids = wfGraph_getNeighbors(currentNext.id).slice(0);
                 i = 0;
                 while (i < nextNeighbor_ids.length) {
-                    neighbors.push(
-                        {
-                            id: nextNeighbor_ids[i],
-                            weight: currentNext.weight * parseFloat(wfGraph_getWeight(currentNext.id, nextNeighbor_ids[i]))
-                        });
+                    if (nextNeighbor_ids[i] != id) {
+                        neighbors.push(
+                            {
+                                id: nextNeighbor_ids[i],
+                                weight: currentNext.weight * parseFloat(wfGraph_getWeight(currentNext.id, nextNeighbor_ids[i]))
+                            });
+                    }
                     i++;
                 }
                 console.log(next);
