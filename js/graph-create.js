@@ -223,7 +223,8 @@ function wfGraph_getNeighborsLabels (idList) {
  */
 
 function sensesOn() {
-    return $('#senseCheckbox').is(":checked");
+    return document.getElementById('senseCheckbox').checked;
+    //return $('#senseCheckbox').is(":checked");
 }
 
 
