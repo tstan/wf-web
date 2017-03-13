@@ -77,7 +77,33 @@
         </p>
     </div>
 </div>
-<div class="container">
+<div class="sidebar">
+    <h4 style="margin-left: 5%; margin-top: 5%">Display Options</h4>
+    <div style="margin-left: 10%; margin-top: 5%">
+        <strong>Senses On/Off</strong><br>
+        <label class="switch">
+            <input type="checkbox" id="senseCheckbox" checked onchange="if (global_word.length > 0) {centerWord(global_word)}">
+            <div class="slider"></div>
+        </label>
+        <div class="form-group" style="width:50%">
+            <label for="sel1">Neighbor Limit</label>
+            <select class="form-control" id="sel1" onchange="if (global_word.length > 0) {centerWord(global_word)}">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="Unlimited">Unlimited</option>
+            </select>
+            <label for="depth">Depth</label>
+            <select class="form-control" id="depth" onchange="if (global_word.length > 0) {centerWord(global_word)}">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="container content">
     <div class="row">
         <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -132,28 +158,6 @@
             </div>
         </div>
         <div>
-            <strong>Senses On/Off</strong><br>
-            <label class="switch">
-                <input type="checkbox" id="senseCheckbox" checked onchange="if (global_word.length > 0) {centerWord(global_word)}">
-                <div class="slider"></div>
-            </label>
-            <div class="form-group" style="width:10%">
-                <label for="sel1">Neighbor Limit</label>
-                <select class="form-control" id="sel1" onchange="if (global_word.length > 0) {centerWord(global_word)}">
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                    <option value="Unlimited">Unlimited</option>
-                </select>
-                <label for="depth">Depth</label>
-                <select class="form-control" id="depth" onchange="if (global_word.length > 0) {centerWord(global_word)}">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
-            </div>
-
             <center>
             <h3>
                 <div id="searchWord"></div>

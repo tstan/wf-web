@@ -99,3 +99,19 @@ input:checked + .slider:before {
 .legend .word { background-color: #6E6EFD; }
 .legend .sense { background-color: #C2FABC; }
 
+.sidebar, .content{
+    height: 500px;
+    border-radius: 4px;
+}
+.sidebar{
+    width: 290px;
+    height: 600px;
+    margin-left:10px;
+    position: absolute;
+    display: inline-block;
+}
+.content{
+    width: 800px;
+    height: 600px;
+    margin-left:300px /* Added */
+}
